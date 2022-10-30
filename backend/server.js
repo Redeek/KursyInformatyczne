@@ -1,8 +1,10 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
+const mongoose = require("mongoose");
 const { errorHandler } = require('./middleware/errorMiddleware')
 const PORT = process.env.PORT || 3000
 const app = express()
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
