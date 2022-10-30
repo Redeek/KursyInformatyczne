@@ -1,13 +1,14 @@
 const express = require('express')
-const {getTutorials, setTutorials} = require('../controllers/tutorialController')
+const {getTutorials, setTutorials, updateTutorial, deleteTutorial} = require('../controllers/tutorialController')
 const router = express.Router()
 
 router.get('/', getTutorials)
 
 router.post('/', setTutorials)
 
-router.delete('/:id', (req, res) => {
-    res.status(200).json({message: `delete tutorials ${req.params.id}`})
-})
+router.put('/:id', updateTutorial)
+
+
+router.delete('/:id', deleteTutorial)
 
 module.exports = router
