@@ -3,25 +3,71 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 
-//@desc Login user
-//@route POST /api/users/login
-const loginUser = async (req, res) => {
-    res.json({message: 'Register'})
-} 
-
 
 //@desc Register new user
 //@route POST /api/users
-const registerUser = async (req, res) => {
-    res.json({message: 'Register'})
-}
+const registerUser = asyncHandler(async (req, res) => {
+    const {name, email, password, secondName } = req.body
+    if(!name || !email || !password || !secondName){
+        res.status(400)
+        throw new Error('name, secondName, email and password are require')
+    }
+
+    const userExists = await User.findOne({email})
+    if(userExists){
+        res.status(400)
+        throw new Error('User already exists')
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    const newUser = await User.create({
+        name,
+        secondName,
+        email,
+        password: hashedPassword,
+    })
+
+    if(newUser){
+        res.status(201).json({
+            _id: newUser.id,
+            name: newUser.name,
+            secondName: newUser.secondName,
+        })
+    }else{
+        res.status(400)
+        throw new Error('something went wrong')
+    }
+
+})
+
+//@desc Login user
+//@route POST /api/users/login
+const loginUser = asyncHandler(async (req, res) => {
+    const {email, password} = req.body
+    
+    const user = await User.findOne({email})
+
+    if(user && (await bcrypt.compare(password, user.password))){
+        res.json({
+            _id: user.id,
+            name: user.name,
+            secondName: user.secondName,
+        })
+    }else{
+        res.status(400)
+        throw new Error('invalid email or password')
+    }
+
+})
 
 
 //@desc Get user data
 //@route GET /api/users
-const getUserInfo = async (req, res) => {
+const getUserInfo = asyncHandler(async (req, res) => {
     res.json({message: 'info about me'})
-}
+})
 
 
 module.exports = {

@@ -1,10 +1,6 @@
 const mongoose =  require('mongoose')
 
 const userSchema = mongoose.Schema({
-    nickname:{
-        type: String,
-        required: [true, "nickname is required"]
-    },
     name:{
         type: String,
         required: [true, "name is required"]
