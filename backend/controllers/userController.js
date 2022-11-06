@@ -34,6 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: newUser.id,
             name: newUser.name,
             secondName: newUser.secondName,
+            token: generateToken(user._id),
         })
     }else{
         res.status(400)
@@ -54,6 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             secondName: user.secondName,
+            token: generateToken(user._id),
         })
     }else{
         res.status(400)
@@ -66,9 +68,22 @@ const loginUser = asyncHandler(async (req, res) => {
 //@desc Get user data
 //@route GET /api/users
 const getUserInfo = asyncHandler(async (req, res) => {
-    res.json({message: 'info about me'})
+    
+    const {_id, name, email} = await User.findById(req.user.id)
+
+    res.status(200).json({
+        id: _id,
+        name,
+        email
+    })
 })
 
+
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.TOKEN_SECRET, {
+        expiresIn: '2d'
+    })
+}
 
 module.exports = {
     loginUser,
