@@ -20,6 +20,7 @@ const setTutorials = asyncHandler (async (req, res) => {
         res.status(400)
         throw new Error('please add a text field')
     }
+    
     const tutorial = await Tutorial.create({
         text: req.body.text,
         user: req.user.id,
