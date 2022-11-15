@@ -24,6 +24,8 @@ const setTutorials = asyncHandler (async (req, res) => {
     const tutorial = await Tutorial.create({
         text: req.body.text,
         user: req.user.id,
+        title: req.body.title,
+        description: req.body.description,
     })
     res.status(200).json(tutorial)
 })

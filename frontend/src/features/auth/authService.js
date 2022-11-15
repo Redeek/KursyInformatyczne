@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-
-
-
 const register = async( userData) => {
     const res = await axios.post("http://localhost:5000/api/users/register", userData)
 

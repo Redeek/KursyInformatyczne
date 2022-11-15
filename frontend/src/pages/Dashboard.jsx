@@ -2,27 +2,24 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
 function Dashboard() {
   
   const navigate = useNavigate()
-  let user = JSON.parse(sessionStorage.getItem("user"))
-  const [userData, setUserData] = useState('')
-  const [error, setError] = useState("")
+  const {user} = useSelector((state)=>state.auth)
 
   useEffect(() => {
     if(!user){
-      navigate("/login")
+      navigate("/")
     }
     
     
-  },[])
-
-
+  },[user,navigate])
   
 
   return (<>
-    {user? <div >User: {userData.name} </div> : <div>Dashboard</div>}
+    {user? <div >User: {user.name} </div> : <div>Dashboard</div>}
      
     </>)
 }

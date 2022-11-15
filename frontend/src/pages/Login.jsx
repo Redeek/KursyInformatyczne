@@ -47,8 +47,8 @@ function Login() {
   }
 
   if(isLoading){
-    return <BounceLoader color="#36d7b7" />
-}
+    return <><div className={"spinner"}><BounceLoader color="#36d7b7" /></div></>
+  }
 
   return (
     <>
