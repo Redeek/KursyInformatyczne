@@ -6,6 +6,14 @@ const tutorialSchema = mongoose.Schema({
         required: true,
         ref: 'User',
     },
+    title:{
+        type: String,
+        required: [true, "This field is required"]
+    },
+    description:{
+        type: String,
+        required: [true, "This field is required"]
+    },
     text:{
         type: String,
         required: [true, 'This field is required'],

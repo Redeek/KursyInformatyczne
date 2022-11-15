@@ -87,4 +87,6 @@ const deleteTutorial = asyncHandler (async (req, res) => {
     res.status(200).json(tutorial.text)
 })
 
+
+
 module.exports = {getTutorials, setTutorials, updateTutorial, deleteTutorial}

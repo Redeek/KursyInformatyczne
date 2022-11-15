@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
+import {toast} from 'react-toastify'
+import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {register, reset} from '../features/auth/authSlice'
+import {BounceLoader} from 'react-spinners'
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -7,14 +12,28 @@ function Register() {
     surname: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmPasword: "",
   });
 
-  const { name, surname, email, password, confirmPassword } = formData;
+  const { name, surname, email, password,confirmPasword} = formData
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-  }
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state)=> state.auth )
+
+  useEffect(()=>{
+    if(isError){
+        toast.error(message)
+    }
+
+    if(isSuccess || user){
+        navigate('/')
+    }
+
+    dispatch(reset())
+
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const onChange = (e) => {
     setFormData((prevState)=>({
@@ -23,6 +42,26 @@ function Register() {
     }))
   }
 
+  const onSubmit = async (e) => {
+        e.preventDefault()
+
+    if(password !== confirmPasword){
+            toast.error('Passwords are not the same')
+        }else{
+            const userData = {
+                name,
+                surname,
+                email,
+                password
+            }
+            dispatch(register(userData))
+        }
+    }
+
+    if(isLoading){
+        return <BounceLoader color="#36d7b7" />
+    }
+  
   return (
     <>
       <section className="heading">
@@ -56,8 +95,8 @@ function Register() {
           </div>
 
           <div className="form-group">
-            <label> confirm your password </label>
-            <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" value={name} placeholder="confirm your name" onChange={onChange} />
+            <label> password </label>
+            <input type="password" className="form-control" id="confirmPasword" name="confirmPasword" value={confirmPasword} placeholder="confirm your password" onChange={onChange} />
           </div>
 
           <div className="form-group">

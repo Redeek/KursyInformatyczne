@@ -7,10 +7,10 @@ const User = require('../models/userModel')
 //@desc Register new user
 //@route POST /api/users
 const registerUser = asyncHandler(async (req, res) => {
-    const {name, email, password, secondName } = req.body
-    if(!name || !email || !password || !secondName){
+    const {name, email, password, surname } = req.body
+    if(!name || !email || !password || !surname){
         res.status(400)
-        throw new Error('name, secondName, email and password are require')
+        throw new Error('name, surname, email and password are require')
     }
 
     const userExists = await User.findOne({email})
@@ -22,18 +22,18 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const newUser = await User.create({
+    const user = await User.create({
         name,
-        secondName,
+        surname,
         email,
         password: hashedPassword,
     })
 
-    if(newUser){
+    if(user){
         res.status(201).json({
-            _id: newUser.id,
-            name: newUser.name,
-            secondName: newUser.secondName,
+            _id: user.id,
+            name: user.name,
+            surname: user.surname,
             token: generateToken(user._id),
         })
     }else{
@@ -54,7 +54,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user.id,
             name: user.name,
-            secondName: user.secondName,
+            surname: user.surname,
+            email: user.email,
             token: generateToken(user._id),
         })
     }else{
@@ -81,7 +82,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
 
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.TOKEN_SECRET, {
-        expiresIn: '2d'
+        expiresIn: '1h'
     })
 }
 
