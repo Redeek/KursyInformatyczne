@@ -1,40 +1,40 @@
 import React from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {BounceLoader} from 'react-spinners'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+import {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import TutorialsList from '../components/TutorialsList'
+import { getTutorials , reset} from '../features/tutorials/tutorialSlice'
 
 function Main() {
+
+  const dispatch = useDispatch() 
+  const {tutorials, isError, isSuccess, isLoading, message} = useSelector((state) => state.tutorials)
     
-    const dispatch = useDispatch()
+useEffect(()=>{
 
-    //const {tutorials, isLoading, isSuccess, isError, message} = useSelector((state)=> state.tutorials)
+  if(isError){
+    console.log(message)
+  }
 
-    // useEffect(()=>{
-    //     if(isError){
-    //         toast.error(message)
-    //     }
-
-    //     dispatch(getTutorials())
-
-    //     return ()=>{dispatch(reset())}
-
-    // },[isError, message, dispatch])
-
-    // if(isLoading){
-    //     return <><div className={"spinner"}><BounceLoader color="#36d7b7" /></div></>
-    // }
+  dispatch(getTutorials())
+  //return () => { dispatch(reset()) }  
+},[isError, message, dispatch])
     
   return (
     <>
         <section className="heading">
             <p>all tutorials</p>
-            <div className='tutorials'>
-                
-            <section className='content'>
-             
+            <section className="content">
+              {tutorials.length > 0 ? (<>
+              <div>
+                {tutorials.map((tutorial)=>(
+                  <TutorialsList key={tutorial._id} tutorial={tutorial}/>
+                ))}
+              </div>
+              
+              
+              </>) : (<><h1>There is no tutorials</h1></>)}
             </section>
-            </div>
+            
         </section>
     </>
   )

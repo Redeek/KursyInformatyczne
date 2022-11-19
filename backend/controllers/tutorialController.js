@@ -16,14 +16,22 @@ const getTutorials = asyncHandler (async (req, res) => {
 // @route SET /api/tutorials
 const setTutorials = asyncHandler (async (req, res) => {
 
+    if(!req.body.title){
+        res.status(400)
+        throw new Error('please add a title field')
+    }
     if(!req.body.text){
         res.status(400)
         throw new Error('please add a text field')
     }
-    
+    if(!req.body.description){
+        res.status(400)
+        throw new Error('please add a description field')
+    }
+
     const tutorial = await Tutorial.create({
-        text: req.body.text,
         user: req.user.id,
+        text: req.body.text,
         title: req.body.title,
         description: req.body.description,
     })
@@ -41,14 +49,12 @@ const tutorial = await Tutorial.findById(req.params.id)
         throw new Error('not found')
     }
 
-    const user = await User.findById(req.user.id)
-
-    if(!user){
+    if(!req.user){
         res.status(401)
         throw new Error('user not found')
     }
 
-    if(tutorial.user.toString() !== user.id){
+    if(tutorial.user.toString() !== req.user.id){
         res.status(401)
         throw new Error('Not authorized')
     }
@@ -72,14 +78,12 @@ const deleteTutorial = asyncHandler (async (req, res) => {
         throw new Error('tutorial doesn`t exist')
     }
 
-    const user = await User.findById(req.user.id)
-
-    if(!user){
+    if(!req.user){
         res.status(401)
         throw new Error('user not found')
     }
 
-    if(tutorial.user.toString() !== user.id){
+    if(tutorial.user.toString() !== req.user.id){
         res.status(401)
         throw new Error('Not authorized')
     }
