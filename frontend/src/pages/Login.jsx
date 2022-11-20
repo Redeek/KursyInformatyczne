@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import {useSelector, useDispatch} from 'react-redux'
 import {login, reset} from '../features/auth/authSlice'
-import {BounceLoader} from 'react-spinners'
+import {FadeLoader} from 'react-spinners'
 
 function Login() {
   const navigate = useNavigate()
@@ -47,7 +47,7 @@ function Login() {
   }
 
   if(isLoading){
-    return <><div className={"spinner"}><BounceLoader color="#36d7b7" /></div></>
+    return <><div className={"spinner"}><FadeLoader color="#36d7b7" /></div></>
   }
 
   return (
