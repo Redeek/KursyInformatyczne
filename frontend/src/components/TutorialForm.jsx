@@ -1,6 +1,7 @@
 import React from 'react'
-import {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { toast } from 'react-toastify';
 import {createTutorial} from '../features/tutorials/tutorialSlice'
 
 
@@ -14,6 +15,7 @@ function TutorialForm() {
     const {title, description, text} = formData
     
     const dispatch = useDispatch()
+    const {tutorial, isLoading, isError, isSuccess, message} = useSelector((state)=> state.tutorials )
     
 
     const onSubmit = async e => {
@@ -24,15 +26,20 @@ function TutorialForm() {
             description,
             text,
         }
-        console.log(tutorialData)
         
         dispatch(createTutorial(tutorialData))
-
+        if(isSuccess){
+          toast.success("Tutorial został dodany poprawnie")
+        }
         setFormData({title: '',
         description: '',
         text: ''})
-        
     }
+
+    useEffect( () =>{
+      
+    },[])
+    
 
     const onChange = (e) => {
         setFormData((prevState)=>({
@@ -47,18 +54,18 @@ function TutorialForm() {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label>title</label>
-            <input type="text" className="form-control" id="title" name="title" value={title} placeholder="enter title of tutorial" onChange={onChange} />
+            <input type="text" className="form-control" id="title" name="title" value={title} placeholder="enter title of tutorial" required onChange={onChange} />
           </div>
           <div className="form-group">
             <label>description</label>
-            <input type="text" className="form-control" id="description" name="description" value={description} placeholder="enter description" onChange={onChange} />
+            <input type="text" className="form-control" id="description" name="description" value={description} placeholder="enter description" required onChange={onChange} />
           </div>
           <div className="form-group">
             <label>text</label>
-            <input type="text" className="form-control" id="text" name="text" value={text} placeholder="enter text" onChange={onChange} />
+            <input type="text" className="form-control" id="text" name="text" value={text} placeholder="enter text" required onChange={onChange} />
           </div>
           <div className="form-group">
-            <button className="btn-block btn" type="submit">Submit</button>
+            <button className="btn-block button" type="submit">Submit</button>
           </div>
         </form>
     </section>

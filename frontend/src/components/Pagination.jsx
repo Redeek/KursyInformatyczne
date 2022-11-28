@@ -10,7 +10,7 @@ function Pagination({TutorialsPerPage, totalTutorials, paginate}) {
         <ul className='pagination mb-4 mt-5'>
             { pageNumbers.map(number => (
                 <li key={number} className="page-item">
-                    <a href="#" onClick={() => paginate(number)} className='page-link'> {number} </a>
+                    <a href="#!" onClick={() => paginate(number)} className='page-link'> {number} </a>
                 </li>
             ))}
             

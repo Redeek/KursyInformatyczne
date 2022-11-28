@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import TutorialsList from '../components/TutorialsList'
+import TutorialsCard from '../components/TutorialsCard'
 import { getTutorials , reset} from '../features/tutorials/tutorialSlice'
 import {FadeLoader} from 'react-spinners'
 import Pagination from '../components/Pagination'
@@ -12,7 +12,7 @@ function Main() {
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1)
-  const [tutorialsPerPage, setTutorialsPerPage] = useState(9)
+  const [tutorialsPerPage, setTutorialsPerPage] = useState(12)
 
   const indexOfLastTutorial = currentPage * tutorialsPerPage
   const indexOfFirstTutorial = indexOfLastTutorial - tutorialsPerPage
@@ -35,7 +35,7 @@ useEffect(()=>{
 },[isError, message, dispatch])
 
 if(isLoading){
-  return <><div className={"spinner"}><FadeLoader color="#36d7b7" /></div></>
+  return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
 }
     
   return (
@@ -51,7 +51,7 @@ if(isLoading){
                 {  
                   currentTutorial.map((tutorial, index)=>(
                         <div className='col-xs-1 m-3' key={index}>
-                          <TutorialsList key={tutorial._id} tutorial={tutorial}/>
+                          <TutorialsCard key={tutorial._id} tutorial={tutorial}/>
                         </div>
                       )
                     )

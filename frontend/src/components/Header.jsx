@@ -16,34 +16,34 @@ function Header() {
     }
 
   return (
-    <header className='header'>
-        <div className='logo'>
-            <Link to='/'>Tutorial</Link>
+    <header className='header m-2 no-link-style'>
+        <div className='d-flex flex-row ' >
+            <Link to='/' style={{textDecoration: 'none', fontSize:'2rem'}} >Tutorial</Link>
         </div>
-        <ul>
+        <div className='d-flex row-reverse '>
             {user? (<>
-                    <li>
-                        <Link to='/dashboard'>
+                    <div className='m-3 align-items-center mt-4' >
+                        <Link to='/dashboard' style={{textDecoration: 'none', fontSize:'1.3rem'}}>
                             <FaUser /> Dashboard
                         </Link>
-                    </li>
+                    </div>
 
-                    <li>
-                        <button className="btn" onClick={onLogout}>Logout</button>
-                    </li>
+                    <div className='m-3 align-items-center' >
+                        <button className="button" onClick={onLogout}>Logout</button>
+                    </div>
                 </>) : (<>
-                <li>
-                    <Link to='/login'>
+                <div className='m-3'>
+                    <Link to='/login' style={{textDecoration: 'none'}}>
                         <FaSignInAlt /> Login
                     </Link>
-                </li>
-                <li>
-                    <Link to='/register'>
+                </div>
+                <div className='m-3'>
+                    <Link to='/register' style={{textDecoration: 'none'}}>
                         <FaUser /> Register
                     </Link>
-                </li></>)}
+                </div></>)}
             
-        </ul>
+        </div>
     </header>
   )
 }

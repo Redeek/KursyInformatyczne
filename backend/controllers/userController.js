@@ -75,7 +75,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
 
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.TOKEN_SECRET, {
-        expiresIn: '1h'
+        expiresIn: '12h'
     })
 }
 

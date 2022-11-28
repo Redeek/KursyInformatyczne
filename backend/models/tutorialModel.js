@@ -10,14 +10,28 @@ const tutorialSchema = mongoose.Schema({
         type: String,
         required: [true, "This field is required"]
     },
-    description:{
+    cardDescription:{
         type: String,
         required: [true, "This field is required"]
     },
-    text:{
+    longDescription:{
         type: String,
-        required: [true, 'This field is required'],
+        required: [true,"this field is required"]
     },
+    chapterArray:[{
+        titleChapter: {
+            type: String,
+        },
+        textChapter: {
+        type: String
+    }}],
+    language: {
+        type: String,
+        required: [true, "this field is required"]
+    },
+    isActive: {
+        type: Boolean
+    }
     
 },
 {

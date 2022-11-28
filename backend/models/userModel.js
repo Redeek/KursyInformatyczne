@@ -17,6 +17,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "password is required"]
     },
+    AddedTutorials:[{
+        tutorialId:{ type: String,
+
+            }
+    }]
     
 
 },{
