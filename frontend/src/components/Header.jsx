@@ -27,7 +27,7 @@ function Header() {
                             <FaUser /> Dashboard
                         </Link>
                     </div>
-
+                    <div className="vr" />
                     <div className='m-3 align-items-center' >
                         <button className="button" onClick={onLogout}>Logout</button>
                     </div>
@@ -37,6 +37,7 @@ function Header() {
                         <FaSignInAlt /> Login
                     </Link>
                 </div>
+                <div className="vr" />
                 <div className='m-3'>
                     <Link to='/register' style={{textDecoration: 'none'}}>
                         <FaUser /> Register

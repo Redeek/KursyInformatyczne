@@ -3,6 +3,7 @@ import tutorialService from './tutorialService'
 
 const initialState = {
     tutorials: [],
+    selectedTutorial: {},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -12,7 +13,7 @@ const initialState = {
 export const createTutorial = createAsyncThunk('tutorials/createTutorial', async (tutorialData, thunkAPI) => {
     try {
         
-        const token = thunkAPI.getState().auth.user.token
+        const token = thunkAPI.getState().auth.user
         return await tutorialService.createTutorial(tutorialData, token)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
@@ -29,11 +30,25 @@ export const getTutorials = createAsyncThunk('tutorials/getTutorials', async(_, 
     }
 })
 
+export const getTutorial = createAsyncThunk('tutorials/getTutorial', async(id, thunkAPI) => {
+    try {
+        return await tutorialService.getTutorial(id)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const tutorialSlice = createSlice({
     name: 'tutorial',
     initialState,
     reducers: {
-        reset: (state) => initialState
+        reset: (state) => {
+            state.isLoading = false
+            state.isSuccess = false
+            state.isError = false
+            state.message = ''
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -67,6 +82,23 @@ export const tutorialSlice = createSlice({
                 state.message = ''
             })
             .addCase(getTutorials.rejected, (state, action) => {
+                state.isError = true
+                state.isLoading = false
+                state.message = action.payload
+            })
+            .addCase(getTutorial.pending, (state) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+                state.message = ''
+            })
+            .addCase(getTutorial.fulfilled, (state, action) => {
+                state.isSuccess = true
+                state.isLoading = false
+                state.selectedTutorial = action.payload
+                state.message = ''
+            })
+            .addCase(getTutorial.rejected, (state, action) => {
                 state.isError = true
                 state.isLoading = false
                 state.message = action.payload

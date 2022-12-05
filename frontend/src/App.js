@@ -8,6 +8,7 @@ import Header from './components/Header';
 import TutorialDetails from './pages/TutorialDetails';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 import './App.css';
 import './bootstrap.css'

@@ -49,10 +49,11 @@ const updateChapter = asyncHandler( async(req,res) => {
     }
 
     const updateChapter = await Tutorial.findByIdAndUpdate(req.params.id,
-                                        { $set: {[`chapterArray.${req.body.id}`] : {titleChapter: req.body.title, textChapter: req.body.text}}}
+                                        { $set: {[`chapterArray.${req.body.id}`] : {titleChapter: req.body.title, textChapter: req.body.text}}},
+                                        { new: true }
                                          )
 
-res.status(200).json(`edytowano: ${req.body.title}`)
+    res.status(200).json(updateChapter)
 
 })
 
@@ -79,8 +80,9 @@ const deleteChapter = asyncHandler( async(req,res)=>{
 
     
     const deleteChapter = await Tutorial.findByIdAndUpdate( req.params.id,
-                                        { $pull: {chapterArray: {'_id': req.params.chapter}}})
-    res.status(200).json("usunięto")
+                                        { $pull: {chapterArray: {'_id': req.params.chapter}}},
+                                        {new: true})
+    res.status(200).json(deleteChapter)
 
 })
 

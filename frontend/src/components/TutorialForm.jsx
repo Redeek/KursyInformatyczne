@@ -1,44 +1,41 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import { toast } from 'react-toastify';
+import {useState} from 'react'
+import {useDispatch} from 'react-redux'
+//import { toast } from 'react-toastify';
 import {createTutorial} from '../features/tutorials/tutorialSlice'
 
 
 function TutorialForm() {
     const [formData, setFormData] = useState({
         title: "",
-        description: "",
-        text: "",
+        cardDescription: "",
+        longDescription: "",
+        language: ""
     });
 
-    const {title, description, text} = formData
+    const {title, cardDescription, longDescription, language} = formData
     
-    const dispatch = useDispatch()
-    const {tutorial, isLoading, isError, isSuccess, message} = useSelector((state)=> state.tutorials )
-    
+    const dispatch = useDispatch()    
 
     const onSubmit = async e => {
         e.preventDefault()
 
         const tutorialData = {
             title,
-            description,
-            text,
+            cardDescription,
+            longDescription,
+            language
         }
         
         dispatch(createTutorial(tutorialData))
-        if(isSuccess){
-          toast.success("Tutorial został dodany poprawnie")
-        }
-        setFormData({title: '',
-        description: '',
-        text: ''})
+        
+        setFormData({
+          title: " ",
+          cardDescription: " ",
+          longDescription: " ",
+          language: " "
+      })
     }
-
-    useEffect( () =>{
-      
-    },[])
     
 
     const onChange = (e) => {
@@ -47,6 +44,16 @@ function TutorialForm() {
           [e.target.name]: e.target.value,
         }))
       }
+
+      const languages = [
+        { name: "Java", value: "Java"},
+        { name: "Cpp", value: "C++"},
+        { name: "CSh", value: "C#"},
+        { name: "JavaScript", value: "JavaScript"},
+        { name: "Python", value: "Python"},
+        { name: "Assembler", value: "Assembler"},
+        { name: "C", value: "C"}
+      ]
 
 
   return (
@@ -57,15 +64,26 @@ function TutorialForm() {
             <input type="text" className="form-control" id="title" name="title" value={title} placeholder="enter title of tutorial" required onChange={onChange} />
           </div>
           <div className="form-group">
-            <label>description</label>
-            <input type="text" className="form-control" id="description" name="description" value={description} placeholder="enter description" required onChange={onChange} />
+            <label>Card description</label>
+            <textarea className="form-textarea" id="cardDescription" name="cardDescription" value={cardDescription} placeholder="enter Card description" required onChange={onChange} />
           </div>
           <div className="form-group">
-            <label>text</label>
-            <input type="text" className="form-control" id="text" name="text" value={text} placeholder="enter text" required onChange={onChange} />
+            <label>Long description</label>
+            <textarea className="form-textarea" id="longDescription" name="longDescription" value={longDescription} placeholder="enter long desctiption" required onChange={onChange} /> 
+              
           </div>
+          
           <div className="form-group">
-            <button className="btn-block button" type="submit">Submit</button>
+            <label>Language</label>
+            <select className="form-select" id="languages" defaultValue="noone" name="languages" onChange={(e)=>{setFormData((prevState) => ({...prevState, language: e.target.value, }))}}>
+              <option disabled value={"noone"}>Choose language</option>
+            {languages.map( languagess => (
+                <option key={languagess.name} value={languagess.value} > {languagess.value} </option>
+            ))} </select>
+          </div>
+          
+          <div className="form-group">
+            <button className="btn-block button btn-group-vertical" type="submit">Submit</button>
           </div>
         </form>
     </section>

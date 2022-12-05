@@ -30,7 +30,8 @@ const tutorialSchema = mongoose.Schema({
         required: [true, "this field is required"]
     },
     isActive: {
-        type: Boolean
+        type: Boolean,
+        required: [true, "this field is required"]
     }
     
 },

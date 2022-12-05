@@ -12,24 +12,34 @@ const getTutorials = asyncHandler (async (req, res) => {
     res.status(200).json(tutorials)
 })
 
+// desc Get tutorial from id in params
+// route GET /api/tutorials/:id
+const getTutorial = asyncHandler( async(req, res) => {
+    const tutorial = await Tutorial.findById(req.params.id)
+
+    res.status(200).json(tutorial)
+})
+
 // desc create tutorial
 // route POST /api/tutorial
 const setTutorials = asyncHandler (async (req, res) => {
 
-    if(!req.body.title){
-        res.status(400)
-        throw new Error('please add a title field')
-    }
-    if(!req.body.description){
-        res.status(400)
-        throw new Error('please add a description field')
-    }
+    // if(!req.body.title){
+    //     res.status(400)
+    //     throw new Error('please add a title field')
+    // }
+    // if(!req.body.longDescription){
+    //     res.status(400)
+    //     throw new Error('please add a description field')
+    // }
 
     const tutorial = await Tutorial.create({
         user: req.user.id,
         title: req.body.title,
-        cardDescription: req.body.description,
-        show: false,
+        cardDescription: req.body.cardDescription,
+        longDescription: req.body.longDescription,
+        language: req.body.language,
+        isActive: false,
         chapterArray:[],
     })
     res.status(200).json(tutorial)
@@ -92,12 +102,12 @@ const deleteTutorial = asyncHandler (async (req, res) => {
 
 // desc Get users tutorials
 // route GET /api/tutorials/my_tutorials
-const getMyTutorials = asyncHandler( async(req, res)=>{
+const getUserTutorials = asyncHandler( async(req, res)=>{
 
-    const tutorials = await Tutorial.find({user: req.user.id })
+    const userTutorials = await Tutorial.find({user: req.user.id })
    
-    res.status(200).json(tutorials)
+    res.status(200).json(userTutorials)
 })
 
 
-module.exports = {getTutorials, setTutorials, updateTutorial, deleteTutorial, getMyTutorials}
+module.exports = {getTutorials, setTutorials, updateTutorial, deleteTutorial, getUserTutorials, getTutorial}

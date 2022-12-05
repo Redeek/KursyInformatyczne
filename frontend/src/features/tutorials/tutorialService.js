@@ -16,10 +16,16 @@ const getTutorials = async () => {
     return res.data
 }
 
+const getTutorial = async(id) =>{
+    const res = await axios.get(`http://localhost:5000/api/tutorials/${id}`)
+    return res.data
+}
+
 
 const tutorialService = {
     createTutorial,
     getTutorials,
+    getTutorial
 }
 
 export default tutorialService

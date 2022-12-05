@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaSignInAlt} from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {useSelector, useDispatch} from 'react-redux'
 import {login, reset} from '../features/auth/authSlice'
@@ -74,7 +74,7 @@ function Login() {
           </div>
 
           <div className="form-group">
-            <button className="btn-block btn" type="submit">Submit</button>
+            <button className="btn-block button btn-group-vertical" type="submit">Submit</button>
           </div>
 
         </form>

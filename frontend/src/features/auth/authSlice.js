@@ -4,7 +4,7 @@ import authService from './authService'
 const user = JSON.parse(sessionStorage.getItem('user'))
 
 const initialState = {
-    user: user? user : null,
+    user: user ? user : null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -12,8 +12,7 @@ const initialState = {
 }
 
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
-    try {
-        
+    try {        
         return await authService.register(user)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
