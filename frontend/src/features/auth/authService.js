@@ -22,6 +22,17 @@ const login = async( userData) => {
     return res.data
 }
 
+const getInfo = async (token) => {
+    const config = {
+        headers: {
+            Authorization:`Bearer ${token}`
+        },
+    }
+
+    const res = await axios.get("http://localhost:5000/api/users/user", config)
+    return res.data
+}
+
 const logout = () => {
     sessionStorage.removeItem('user')
 }
@@ -29,6 +40,7 @@ const logout = () => {
 const authService = {
     register,
     logout,
+    getInfo,
     login
 }
 

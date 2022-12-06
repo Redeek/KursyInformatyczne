@@ -7,7 +7,7 @@ const User = require('../models/userModel')
 // desc Get all tutorials
 // route GET /api/tutorials
 const getTutorials = asyncHandler (async (req, res) => {
-    const tutorials = await Tutorial.find({show: true},{updatedAt:0})
+    const tutorials = await Tutorial.find({isActive: false},{updatedAt:0})
    
     res.status(200).json(tutorials)
 })
