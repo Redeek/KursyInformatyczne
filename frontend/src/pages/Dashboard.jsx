@@ -23,14 +23,11 @@ function Dashboard() {
         console.log(message)
       }
 
+      dispatch(getInfo())
+
       if(!user){
         navigate("/")
       }
-
-      dispatch(getInfo())
-      return () => { 
-        dispatch(reset())
-      }  
     
     },[isError, message, dispatch, user, navigate])
 

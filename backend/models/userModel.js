@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema({
     },
     AddedTutorials:[{
         tutorialId:{ type: mongoose.Schema.Types.ObjectId, ref:"Tutorial"},
+        title: {type: String, reqired: true}, 
         progress: {type: Number}
     }]
     

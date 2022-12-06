@@ -33,6 +33,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 export const getInfo = createAsyncThunk('auth/info', async (_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user
+        console.log(token)
         return await authService.getInfo(token)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()

@@ -72,7 +72,6 @@ const getUserInfo = asyncHandler(async (req, res) => {
     res.status(200).json(req.user)
 })
 
-
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.TOKEN_SECRET, {
         expiresIn: '12h'
@@ -82,5 +81,5 @@ const generateToken = (id) => {
 module.exports = {
     loginUser,
     registerUser,
-    getUserInfo,
+    getUserInfo
 }

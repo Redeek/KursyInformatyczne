@@ -8,7 +8,7 @@ const register = async( userData) => {
 
     }
 
-    return res.data
+    return res.data.token
 }
 
 const login = async( userData) => {
@@ -19,7 +19,7 @@ const login = async( userData) => {
 
     }
 
-    return res.data
+    return res.data.token
 }
 
 const getInfo = async (token) => {
@@ -28,7 +28,7 @@ const getInfo = async (token) => {
             Authorization:`Bearer ${token}`
         },
     }
-
+    
     const res = await axios.get("http://localhost:5000/api/users/user", config)
     return res.data
 }
