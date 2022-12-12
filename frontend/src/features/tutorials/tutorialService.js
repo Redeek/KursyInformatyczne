@@ -21,11 +21,22 @@ const getTutorial = async(id) =>{
     return res.data
 }
 
+const deleteTutorial = async(id, token) => {
+    const config = {
+        headers: {
+            Authorization:`Bearer ${token}`
+        },
+    }
+    const res = await axios.delete(`http://localhost:5000/api/tutorials/${id}`, config)
+    return res.data
+}
+
 
 const tutorialService = {
     createTutorial,
     getTutorials,
-    getTutorial
+    getTutorial,
+    deleteTutorial,
 }
 
 export default tutorialService

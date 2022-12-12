@@ -17,9 +17,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "password is required"]
     },
-    AddedTutorials:[{
+    assignTutorials:[{
         tutorialId:{ type: mongoose.Schema.Types.ObjectId, ref:"Tutorial"},
-        title: {type: String, reqired: true}, 
+        title: {type: String, reqired: true},
+        description: {type: String, required: true},
         progress: {type: Number}
     }]
     

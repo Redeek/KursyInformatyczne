@@ -5,7 +5,7 @@ import TutorialForm from '../components/TutorialForm'
 import UserInfo from '../components/UserInfo'
 import TutorialsDisplay from '../components/TutorialsDisplay'
 import { useDispatch, useSelector } from 'react-redux'
-import { getInfo, reset } from '../features/auth/authSlice'
+import { getInfo } from '../features/auth/authSlice'
 import {FadeLoader} from 'react-spinners'
 
 
@@ -49,7 +49,7 @@ function Dashboard() {
           
           <div className="col-4 mt-3 mb-3" >
             <div>
-              <button type="button" className={status === "showTutorials"? "btn btn-outline-light active" :"btn btn-outline-light"} onClick={()=>{setStatus("showTutorials")}}>Show own Tutorials</button>
+              <button type="button" className={status === "showTutorials"? "btn btn-outline-light active" :"btn btn-outline-light"} onClick={()=>{setStatus("showTutorials")}}>Show assigned Tutorials</button>
             </div>
           </div>
           <div className="col-4 mt-3 mb-3">

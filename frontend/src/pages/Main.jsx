@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TutorialsCard from '../components/TutorialsCard'
 import { getTutorials , reset} from '../features/tutorials/tutorialSlice'
+import { getAssignTutorials} from '../features/assignTutorials/assignSlice'
 import {FadeLoader} from 'react-spinners'
 import Pagination from '../components/Pagination'
 
@@ -28,8 +29,9 @@ useEffect(()=>{
   if(isError){
     console.log(message)
   }
-
   dispatch(getTutorials())
+  
+  dispatch(getAssignTutorials())
 
   return () => { dispatch(reset()) }  
 },[isError, message, dispatch])
@@ -38,7 +40,7 @@ if(isLoading){
   return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
 }
 
-  
+
   return (
     <>
         <div className="container">
@@ -47,11 +49,13 @@ if(isLoading){
               (<>
               <div className='row row-cols-auto d-flex align-items-center justify-content-center' >
                 {  
-                  currentTutorial.map((tutorial, index)=>(
+                  
+                  currentTutorial.map((tutorial, index)=>{
+                        return(
                         <div className='col-xs-1 m-3' key={index}>
-                          <TutorialsCard key={tutorial._id} tutorial={tutorial}/>
-                        </div>
-                      ))
+                          <TutorialsCard key={tutorial._id} tutorial={tutorial} />
+                        </div>)
+                  })
                 }
               </div>
               <div className='col m-3 d-flex align-items-center justify-content-center' >

@@ -69,7 +69,7 @@ export const assignSlice = createSlice({
             .addCase(assignTutorialToAccount.fulfilled, (state, action) => {
                 state.isSuccess = true
                 state.isLoading = false
-                state.assignTutorials.push(action.payload)
+                state.assignTutorials.assignTutorials.push(action.payload)
                 state.message = ''
             })
             .addCase(assignTutorialToAccount.rejected, (state, action) => {

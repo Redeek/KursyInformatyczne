@@ -110,4 +110,30 @@ const getUserTutorials = asyncHandler( async(req, res)=>{
 })
 
 
-module.exports = {getTutorials, setTutorials, updateTutorial, deleteTutorial, getUserTutorials, getTutorial}
+const setActive = asyncHandler (async (req, res) => {
+
+    const tutorial = await Tutorial.findById(req.params.id)
+
+    if(!tutorial){
+        res.status(400)
+        throw new Error('not found')
+    }
+
+    if(!req.user){
+        res.status(401)
+        throw new Error('user not found')
+    }
+
+    if(tutorial.user.toString() !== req.user.id){
+        res.status(401)
+        throw new Error('Not authorized')
+    }
+
+    const updatedTutorial = await Tutorial.findByIdAndUpdate(req.params.id, {isActive: req.body.active},{
+        new: true,
+    })
+
+    res.status(200).json(updatedTutorial)
+})
+
+module.exports = {getTutorials, setTutorials, updateTutorial, deleteTutorial, getUserTutorials, getTutorial, setActive}

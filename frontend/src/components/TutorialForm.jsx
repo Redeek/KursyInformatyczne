@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState} from 'react'
 import {useDispatch} from 'react-redux'
-//import { toast } from 'react-toastify';
 import {createTutorial} from '../features/tutorials/tutorialSlice'
 
 

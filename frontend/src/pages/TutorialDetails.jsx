@@ -1,24 +1,26 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
-import { useEffect} from 'react'
+import {useParams, useNavigate} from 'react-router-dom'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTutorial, reset} from '../features/tutorials/tutorialSlice'
+import { getTutorial, deleteTutorial, reset} from '../features/tutorials/tutorialSlice'
 import {FadeLoader} from 'react-spinners'
-import ChapterCollapse from '../components/ChapterCollapse'
+import { getInfo } from '../features/auth/authSlice'
 import Accordion from 'react-bootstrap/Accordion'
 
 function TutorialDetails() {
-    //Zwraca klucz-wartosc z linku
     const {id} = useParams()
 
+    const navigate = useNavigate()
     const dispatch = useDispatch() 
     const {selectedTutorial, isError, isLoading, message} = useSelector((state) => state.tutorials)
-
+    const {userInfo} = useSelector((state) => state.auth)
+    
     useEffect(()=>{
         if(isError){
           console.log(message)
         }
-
+      
+        dispatch(getInfo())
         dispatch(getTutorial(id))
         return () => { 
           dispatch(reset())
@@ -30,6 +32,17 @@ function TutorialDetails() {
         return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
       }
 
+      const addChapter = async() =>{
+        console.log("add chapter")
+      }
+
+
+      const deletetutorial = async() =>{
+        console.log("delete chapter")
+        dispatch(deleteTutorial(id))
+        navigate('/')
+      } 
+
 
   return (<>
     <div>TutorialDetails</div>
@@ -37,9 +50,14 @@ function TutorialDetails() {
       <section className="container">
         <div className="header">
           { <h3>{selectedTutorial.title}</h3> }
+          {selectedTutorial?.user === userInfo?._id? (<div>
+            <button className='btn btn-primary' onClick={()=>{addChapter()}}>Add chapter</button>
+            <button className='btn btn-error' onClick={()=>{deletetutorial()}}>delete tutorial</button>
+          </div>):(<></>)}
+          
         </div>
         <div className="">
-          <h5>{selectedTutorial.description}</h5>
+          <h5>{selectedTutorial?.description}</h5>
         </div>
         {selectedTutorial.chapterArray?.length > 0 ? 
               (<>
@@ -47,28 +65,12 @@ function TutorialDetails() {
                 <div className="accordion" id="accordionDetails">
                       {  
                       selectedTutorial.chapterArray.map((tutorial, index)=>(
-                        //<ChapterCollapse tutorial={tutorial} id={index}/>
-                        <Accordion>
+                        <Accordion key={tutorial._id}>
                             <Accordion.Item eventKey={index} >
                                 <Accordion.Header> <h5>{tutorial.titleChapter} </h5></Accordion.Header>
                                 <Accordion.Body> {tutorial.textChapter}</Accordion.Body> 
                             </Accordion.Item>    
-                        </Accordion> 
-                        // <div className="card" id={tutorial._id} >
-                        //   <div className="card-header">
-                        //       <h2 className='mb-0'>
-                        //         <button className="btn btn-link" type='button' data-toggle="collapse"  data-target={'#'+index} aria-expanded="true" aria-controls={index} >
-                        //           {tutorial.titleChapter}
-                        //         </button>
-                        //       </h2>
-                        //   </div>
-
-                        //   <div className="collapse show" id={"body"+index} data-parent='#accordionDetails'>
-                        //     <div className="card-body">
-                        //       {tutorial.textChapter}
-                        //     </div>
-                        //   </div>
-                        // </div>
+                        </Accordion>
                         ))}
                 
                 </div>
