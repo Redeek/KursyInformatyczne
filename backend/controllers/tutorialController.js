@@ -4,10 +4,10 @@ const Tutorial = require('../models/tutorialModel')
 const User = require('../models/userModel')
 
 
-// desc Get all tutorials
+// desc Get all active tutorials
 // route GET /api/tutorials
 const getTutorials = asyncHandler (async (req, res) => {
-    const tutorials = await Tutorial.find({isActive: false},{updatedAt:0})
+    const tutorials = await Tutorial.find({isActive: true},{updatedAt:0})
    
     res.status(200).json(tutorials)
 })
@@ -104,8 +104,13 @@ const deleteTutorial = asyncHandler (async (req, res) => {
 // route GET /api/tutorials/my_tutorials
 const getUserTutorials = asyncHandler( async(req, res)=>{
 
-    const userTutorials = await Tutorial.find({user: req.user.id })
-   
+    if(!req.user){
+        res.status(401)
+        throw new Error('user not found')
+    }
+
+    const userTutorials = await Tutorial.find({user: req.user.id})
+
     res.status(200).json(userTutorials)
 })
 

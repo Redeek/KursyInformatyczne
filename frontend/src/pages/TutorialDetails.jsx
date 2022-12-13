@@ -30,6 +30,7 @@ function TutorialDetails() {
 
       if(isLoading){
         return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
+        
       }
 
       const addChapter = async() =>{
@@ -38,9 +39,10 @@ function TutorialDetails() {
 
 
       const deletetutorial = async() =>{
-        console.log("delete chapter")
         dispatch(deleteTutorial(id))
+        dispatch(reset())
         navigate('/')
+        window.location.reload()
       } 
 
 

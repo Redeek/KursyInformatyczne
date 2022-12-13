@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAssignTutorials } from '../features/assignTutorials/assignSlice'
 import {FadeLoader} from 'react-spinners'
 import Accordion from 'react-bootstrap/Accordion'
+import { reset} from '../features/tutorials/tutorialSlice'
 
 function TutorialsDisplay() {
 
@@ -18,7 +19,7 @@ function TutorialsDisplay() {
   
     dispatch(getAssignTutorials())
   
-    //return () => { dispatch(reset()) }  
+    return () => { dispatch(reset()) }  
   },[isError, message, dispatch])
 
   if(isLoading){
