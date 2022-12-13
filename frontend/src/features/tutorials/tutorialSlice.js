@@ -4,6 +4,7 @@ import tutorialService from './tutorialService'
 const initialState = {
     tutorials: [],
     selectedTutorial: {},
+    createdTutorials: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -41,9 +42,18 @@ export const getTutorial = createAsyncThunk('tutorials/getTutorial', async(id, t
 
 export const deleteTutorial = createAsyncThunk('tutorials/deleteTutorial', async (id, thunkAPI) => {
     try {
-        
         const token = thunkAPI.getState().auth.user
         return await tutorialService.deleteTutorial(id, token)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const userTutorials = createAsyncThunk('tutorials/userstutorials', async(_, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user
+        return await tutorialService.userTutorials(token)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -128,6 +138,23 @@ export const tutorialSlice = createSlice({
                 state.message = ''
             })
             .addCase(deleteTutorial.rejected, (state, action) => {
+                state.isError = true
+                state.isLoading = false
+                state.message = action.payload
+            })
+            .addCase(userTutorials.pending, (state) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+                state.message = ''
+            })
+            .addCase(userTutorials.fulfilled, (state, action) => {
+                state.isSuccess = true
+                state.isLoading = false
+                state.createdTutorials = action.payload
+                state.message = ''
+            })
+            .addCase(userTutorials.rejected, (state, action) => {
                 state.isError = true
                 state.isLoading = false
                 state.message = action.payload

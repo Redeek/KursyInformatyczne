@@ -54,9 +54,40 @@ const deleteAssignTutorial = asyncHandler( async(req,res)=>{
 
 })
 
+//desc Update progress
+//route PUT /api/assign/progress/:id
+const updateProgress = asyncHandler( async(req,res) => {
+    if(!req.user){
+        res.status(401)
+        throw new Error('user not found')
+    }
+
+    const tutorial = await Tutorial.findById(req.params.id)
+
+    if(!tutorial){
+        res.status(400)
+        throw new Error('tutorial doesn`t exist')
+    }
+
+    const actualProgress = await User.findById(req.user.id,  `assignTutorials.${req.body.id}` )
+    console.log(actualProgress)
+
+    const countChapter = tutorial.chapterArray.length
+   
+    const progressInChapter = 1/countChapter*100
+
+    const updateProgress = await User.findByIdAndUpdate(req.user.id,
+                                        { $set: {[`assignTutorials.${req.body.id}.progress`] :  progressInChapter}}, {new: true}
+                                         )
+    
+    res.status(200).json(updateProgress)
+
+})
+
 
 module.exports = {
     showAssignedTutorial,
     assignTutorial,
-    deleteAssignTutorial
+    deleteAssignTutorial,
+    updateProgress
 }

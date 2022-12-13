@@ -45,6 +45,10 @@ function TutorialDetails() {
         window.location.reload()
       } 
 
+      if(selectedTutorial===null ){
+        return <div>Tutorial doesn't exist</div>
+      }
+
 
   return (<>
     <div>TutorialDetails</div>

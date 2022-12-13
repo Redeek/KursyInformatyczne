@@ -16,6 +16,10 @@ const getTutorials = asyncHandler (async (req, res) => {
 // route GET /api/tutorials/:id
 const getTutorial = asyncHandler( async(req, res) => {
     const tutorial = await Tutorial.findById(req.params.id)
+    
+    if(!tutorial){
+        //res.status(404).render("404.jade")
+    }
 
     res.status(200).json(tutorial)
 })

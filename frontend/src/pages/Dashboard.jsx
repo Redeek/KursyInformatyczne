@@ -49,7 +49,7 @@ function Dashboard() {
           
           <div className="col-4 mt-3 mb-3" >
             <div>
-              <button type="button" className={status === "showTutorials"? "btn btn-outline-light active" :"btn btn-outline-light"} onClick={()=>{setStatus("showTutorials")}}>Show assigned Tutorials</button>
+              <button type="button" className={status === "showTutorials"? "btn btn-outline-light active" :"btn btn-outline-light"} onClick={()=>{setStatus("showTutorials")}}>Show Tutorials</button>
             </div>
           </div>
           <div className="col-4 mt-3 mb-3">

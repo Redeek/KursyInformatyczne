@@ -22,6 +22,8 @@ function TutorialsCard({tutorial}) {
 
     if(assignTutorials?.assignTutorials?.length > 0){
        assignTutorials.assignTutorials.some(e => e.tutorialId === tutorial._id)? toast.error("Już posiadasz ten tutorial") : handleAddTutorial(tutorial._id)
+    }else{
+      handleAddTutorial(tutorial._id)
     }
     
   }
