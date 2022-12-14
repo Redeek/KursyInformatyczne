@@ -43,6 +43,18 @@ const userTutorials = async(token) => {
     return res.data
 }
 
+const addChapter = async(formData, token) => {
+    const config = {
+        headers: {
+            Authorization:`Bearer ${token}`
+        },
+    }
+
+    const res = await axios.post('http://localhost:5000/api/chapters',formData, config)
+
+    return res.data
+}
+
 
 const tutorialService = {
     createTutorial,
@@ -50,6 +62,7 @@ const tutorialService = {
     getTutorial,
     deleteTutorial,
     userTutorials,
+    addChapter,
 }
 
 export default tutorialService

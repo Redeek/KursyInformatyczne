@@ -1,14 +1,19 @@
 import React from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTutorial, deleteTutorial, reset} from '../features/tutorials/tutorialSlice'
 import {FadeLoader} from 'react-spinners'
 import { getInfo } from '../features/auth/authSlice'
 import Accordion from 'react-bootstrap/Accordion'
+import AddChapter from '../components/AddChapter'
 
 function TutorialDetails() {
     const {id} = useParams()
+    const [show, setShow] = useState(false)
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const navigate = useNavigate()
     const dispatch = useDispatch() 
@@ -57,7 +62,7 @@ function TutorialDetails() {
         <div className="header">
           { <h3>{selectedTutorial.title}</h3> }
           {selectedTutorial?.user === userInfo?._id? (<div>
-            <button className='btn btn-primary' onClick={()=>{addChapter()}}>Add chapter</button>
+            <button className='btn btn-primary' onClick={()=>{handleShow()}}>Add chapter</button>
             <button className='btn btn-error' onClick={()=>{deletetutorial()}}>delete tutorial</button>
           </div>):(<></>)}
           
@@ -84,6 +89,8 @@ function TutorialDetails() {
               </>) : (<><h1>There is no chapters</h1></>)}
       </section>
     </div>
+
+    <AddChapter show={show} handleClose={handleClose} />
     </>)
 }
 

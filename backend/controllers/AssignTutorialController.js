@@ -69,18 +69,28 @@ const updateProgress = asyncHandler( async(req,res) => {
         throw new Error('tutorial doesn`t exist')
     }
 
-    const actualProgress = await User.findById(req.user.id,  `assignTutorials.${req.body.id}` )
-    console.log(actualProgress)
+    // const actualProgress = await User.findById(req.user.id, {assignTutorials: {$elemMatch: {id}} }, { _id:0, progress:1}).lean()
+    // console.log(actualProgress.assignTutorials[0].progress)
+
+    const actualUsersProgress = await User.find({user: req.user.id},{"assignTutorials.tutorialId": req.params.id})
+    
+    //.elemMatch("assignTutorials", {tutorialId: req.params.id}).lean()
+            
+    console.log(actualUsersProgress)
+    const actualProgress = actualProgress.assignTutorials[req.body.id]
 
     const countChapter = tutorial.chapterArray.length
    
     const progressInChapter = 1/countChapter*100
 
+    //const addProgress = actualProgress + progressInChapter
+    //console.log(addProgress)
+
     const updateProgress = await User.findByIdAndUpdate(req.user.id,
-                                        { $set: {[`assignTutorials.${req.body.id}.progress`] :  progressInChapter}}, {new: true}
-                                         )
+                                     { $set: {[`assignTutorials.${req.body.id}.progress`] :  addProgress}}, 
+                                     {new: true})
     
-    res.status(200).json(updateProgress)
+    res.status(200).json("updateProgress")
 
 })
 
