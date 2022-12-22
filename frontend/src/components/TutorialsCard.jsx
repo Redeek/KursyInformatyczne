@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 function TutorialsCard({tutorial}) { 
 
   const dispatch = useDispatch() 
+  
   const {assignTutorials, isError, message} = useSelector((state) => state.assigntutorials)
   
   useEffect(()=>{
@@ -18,9 +19,11 @@ function TutorialsCard({tutorial}) {
  
   },[isError, message])
 
+ 
+
   const check = async (tutorial) => {
 
-    if(assignTutorials?.assignTutorials?.length > 0){
+    if(assignTutorials && assignTutorials.assignTutorials?.length > 0){
        assignTutorials.assignTutorials.some(e => e.tutorialId === tutorial._id)? toast.error("Już posiadasz ten tutorial") : handleAddTutorial(tutorial._id)
     }else{
       handleAddTutorial(tutorial._id)
@@ -34,7 +37,12 @@ function TutorialsCard({tutorial}) {
       id: tutorialId
     }
     dispatch(assignTutorialToAccount(data))
-    toast.info("Przypisano tutorial do konta")
+    if(message.length > 0){
+      toast.error(message)
+    }else{
+      toast.info("Przypisano tutorial do konta")
+    }
+    
   }
 
   return (

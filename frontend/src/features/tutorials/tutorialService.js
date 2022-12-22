@@ -55,6 +55,16 @@ const addChapter = async(formData, token) => {
     return res.data
 }
 
+const deleteChapter = async(idData, tutorial, token) => {
+    const config = {
+        headers: {
+            Authorization:`Bearer ${token}`
+        },
+    }
+    const res = await axios.delete(`http://localhost:5000/api/chapters/${tutorial}/${idData}`, config)
+
+    return res.data
+}
 
 const tutorialService = {
     createTutorial,
@@ -63,6 +73,7 @@ const tutorialService = {
     deleteTutorial,
     userTutorials,
     addChapter,
+    deleteChapter,
 }
 
 export default tutorialService

@@ -31,14 +31,14 @@ function TutorialsDisplay() {
 
 
   return (<>
-    {assignTutorials.assignTutorials?.length > 0 ? 
+    {assignTutorials && assignTutorials.assignTutorials?.length > 0 ? 
       (<>
       <div className='row d-flex align-items-center justify-content-center' >
         <h5><p className=" d-flex align-items-left justify-content-left">There is your assigned tutorials</p></h5>
         <div className="accordion" id="accordionDetails">
               {  
-              assignTutorials.assignTutorials.map((tutorial)=>(
-                <Accordion>
+              assignTutorials.assignTutorials.map((tutorial, index)=>(
+                <Accordion key={index}>
                     <Accordion.Item eventKey={tutorial.tutorialId} >
                         <Accordion.Header> <h5>
                           {tutorial.title} </h5>
@@ -63,8 +63,8 @@ function TutorialsDisplay() {
         </h5>
         <div className="accordion" id="accordionDetails">
               {  
-              createdTutorials.map((tutorial)=>(
-                <Accordion>
+              createdTutorials.map((tutorial, index)=>(
+                <Accordion key={index}>
                     <Accordion.Item eventKey={tutorial._id} >
                         <Accordion.Header> <h5>
                           {tutorial.title} </h5>

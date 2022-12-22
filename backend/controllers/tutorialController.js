@@ -43,7 +43,7 @@ const setTutorials = asyncHandler (async (req, res) => {
         cardDescription: req.body.cardDescription,
         longDescription: req.body.longDescription,
         language: req.body.language,
-        isActive: false,
+        isActive: true,
         chapterArray:[],
     })
     res.status(200).json(tutorial)

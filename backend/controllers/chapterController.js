@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Tutorial = require('../models/tutorialModel')
-const User = require('../models/userModel')
+//const User = require('../models/userModel')
 
 //desc Add chapter
 //route Post /api/tutorials/chapter/:id
@@ -23,8 +23,10 @@ const setChapter = asyncHandler( async(req,res) =>{
         throw new Error('Not authorized')
     }
 
+    
+    const youtube = req.body.link.split("watch?v=")
     const AddChapter = await Tutorial.findByIdAndUpdate(req.body.id,
-                                    {$push: {'chapterArray': {titleChapter: req.body.title, textChapter: req.body.text}}} )
+                                    {$push: {'chapterArray': {titleChapter: req.body.title, textChapter: req.body.text, youtubeLink: youtube[1]}}} )
 
     res.status(200).json(`dodano: ${req.body.title}`)
 })

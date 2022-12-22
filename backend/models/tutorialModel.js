@@ -23,8 +23,16 @@ const tutorialSchema = mongoose.Schema({
             type: String,
         },
         textChapter: {
-        type: String
-    }}],
+            type: String
+        },
+        youtubeLink: {
+            type: String
+        },
+        isEnd: {
+            type: Boolean,
+            default: false
+        }
+}],
     language: {
         type: String,
         required: [true, "this field is required"]

@@ -70,6 +70,19 @@ export const addChapter = createAsyncThunk('tutorials/addChapter', async(formDat
     }
 })
 
+export const deleteChapter = createAsyncThunk('tutorials/deleteChapter', async(idData, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user
+        const tutorial = thunkAPI.getState().tutorials.selectedTutorial._id
+        
+        return await tutorialService.deleteChapter(idData, tutorial, token)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+
 
 export const tutorialSlice = createSlice({
     name: 'tutorial',
@@ -178,10 +191,27 @@ export const tutorialSlice = createSlice({
             .addCase(addChapter.fulfilled, (state, action) => {
                 state.isSuccess = true
                 state.isLoading = false
-                state.createdTutorials = action.payload
+                state.selectedTutorial = action.payload
                 state.message = ''
             })
             .addCase(addChapter.rejected, (state, action) => {
+                state.isError = true
+                state.isLoading = false
+                state.message = action.payload
+            })
+            .addCase(deleteChapter.pending, (state) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+                state.message = ''
+            })
+            .addCase(deleteChapter.fulfilled, (state, action) => {
+                state.isSuccess = true
+                state.isLoading = false
+                state.selectedTutorial = action.payload
+                state.message = ''
+            })
+            .addCase(deleteChapter.rejected, (state, action) => {
                 state.isError = true
                 state.isLoading = false
                 state.message = action.payload

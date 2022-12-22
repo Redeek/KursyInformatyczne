@@ -23,7 +23,9 @@ function Dashboard() {
         console.log(message)
       }
 
-      dispatch(getInfo())
+      if(user){
+        dispatch(getInfo())
+      }
 
       if(!user){
         navigate("/")
