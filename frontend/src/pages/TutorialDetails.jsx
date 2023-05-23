@@ -9,7 +9,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import AddChapter from '../components/AddChapter'
 import {toast} from 'react-toastify'
 import ShowVideo from '../components/ShowVideo'
-import { getAssignTutorial, setEndChapter, unsetEndChapter } from '../features/assignTutorials/assignSlice'
+import { getAssignTutorial} from '../features/assignTutorials/assignSlice'
 
 
 function TutorialDetails() {
@@ -31,7 +31,7 @@ function TutorialDetails() {
     const dispatch = useDispatch() 
     const {selectedTutorial} = useSelector((state) => state.tutorials)
     const {user, userInfo} = useSelector((state) => state.auth)
-    const {Tutorial, isError, isLoading, message} = useSelector((state) => state.tutorials)
+    const {isError, isLoading, message} = useSelector((state) => state.tutorials)
     
     useEffect(()=>{
         if(isError){
@@ -50,7 +50,7 @@ function TutorialDetails() {
           dispatch(reset())
         }  
       
-      },[isError, message, id, user])
+      },[isError, message, dispatch, id, user])
 
       if(isLoading){
         return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
@@ -72,25 +72,7 @@ function TutorialDetails() {
           toast.error(message)
         }
       } 
-
-      const setchapterfinish = async (index) => {
-        const data = {
-          tutorialId: id,
-          arr: index
-        }
-        dispatch(setEndChapter(data))
-        window.location.reload()
-      }
-
-      const unsetchapterfinish = async (index) => {
-        const data = {
-          tutorialId: id,
-          arr: index
-        }
-        dispatch(unsetEndChapter(data))
-        window.location.reload()
-      }
-
+      
       if(selectedTutorial.message ){
         return <div>Tutorial doesn't exist</div>
       }
@@ -122,16 +104,10 @@ function TutorialDetails() {
                                     <h5>{chapter.titleChapter} </h5> 
                                   </Accordion.Header>
                                   <Accordion.Body> 
-                                  {chapter.isEnd? <>
-                                    <button className="btn btn-info" style={{ zIndex:"2", position:"absolute", right:"45%" }} onClick={()=>{unsetchapterfinish( index)}}> Set chapter as unfinished </button>
-                                    <h6 style={{marginTop:"50px"}}>Congratulation! You finished this chapter</h6>
-                                    </> : (<></>)}
-                                       
-                                      
                                     <div className='row' style={chapter.isEnd?{filter: "blur(8px)", zIndex:"-1"}: {}}>
                                       <div className="col-11 "> {chapter.textChapter}</div>
                                       <div className="col-1 "> 
-                                       { user? <button className='btn btn-info' onClick={()=>{setchapterfinish( index)}}>Finish</button>:<></> }
+                                       
                                         
                                         {selectedTutorial?.user === userInfo?._id? (<div>
                                           <button className="btn btn-danger" onClick={() => {deletechapter(chapter._id)}}> delete </button>
@@ -160,7 +136,7 @@ function TutorialDetails() {
                                     { 
                                                                      
                                     }
-                                    <button className='btn btn-info' onClick={()=>{setchapterfinish( index)}}>Finished</button>
+                                    
                                     {selectedTutorial?.user === userInfo?._id? (<div>
                                       <button className="btn" onClick={() => {deletechapter(chapter._id)}}> delete </button>
                                     </div>):(<></>)}

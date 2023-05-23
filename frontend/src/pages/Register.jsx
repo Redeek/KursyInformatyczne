@@ -63,8 +63,7 @@ function Register() {
         return <BounceLoader color="#36d7b7" />
     }
   
-  return (
-    <>
+  return (<>
       <section className="heading">
         <div>
           <h2>

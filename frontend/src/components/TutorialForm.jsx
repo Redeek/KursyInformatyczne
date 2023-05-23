@@ -2,7 +2,6 @@ import React from 'react'
 import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {createTutorial} from '../features/tutorials/tutorialSlice'
-import {useNavigate} from 'react-router-dom'
 
 
 function TutorialForm() {
@@ -69,17 +68,17 @@ function TutorialForm() {
           </div>
           <div className="form-group">
             <label>Long description</label>
-            <textarea className="form-textarea" id="longDescription" name="longDescription" value={longDescription} placeholder="enter long desctiption" required onChange={onChange} /> 
-              
+            <textarea className="form-textarea" id="longDescription" name="longDescription" value={longDescription} placeholder="enter long desctiption" required onChange={onChange} />   
           </div>
           
           <div className="form-group">
             <label>Language</label>
             <select className="form-select" id="languages" defaultValue="noone" name="languages" onChange={(e)=>{setFormData((prevState) => ({...prevState, language: e.target.value, }))}}>
               <option disabled value={"noone"}>Choose language</option>
-            {languages.map( languagess => (
-                <option key={languagess.name} value={languagess.value} > {languagess.value} </option>
-            ))} </select>
+              {languages.map( languagess => (
+                  <option key={languagess.name} value={languagess.value} > {languagess.value} </option>
+              ))} 
+            </select>
           </div>
           
           <div className="form-group">

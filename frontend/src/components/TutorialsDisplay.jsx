@@ -33,26 +33,25 @@ function TutorialsDisplay() {
   return (<>
     {assignTutorials && assignTutorials.assignTutorials?.length > 0 ? 
       (<>
-      <div className='row d-flex align-items-center justify-content-center' >
-        <h5><p className=" d-flex align-items-left justify-content-left">There is your assigned tutorials</p></h5>
-        <div className="accordion" id="accordionDetails">
+        <div className='row d-flex align-items-center justify-content-center' >
+          <h5><p className=" d-flex align-items-left justify-content-left">There is your assigned tutorials</p></h5>
+          <div className="accordion" id="accordionDetails">
               {  
-              assignTutorials.assignTutorials.map((tutorial, index)=>(
-                <Accordion key={index}>
-                    <Accordion.Item eventKey={tutorial.tutorialId} >
-                        <Accordion.Header> <h5>
-                          {tutorial.title} </h5>
-                        </Accordion.Header>
-                        <Accordion.Body> 
-                          <h6>Opis:</h6> <p> {tutorial.description} </p>
-                          <h6>Ukończono w: {tutorial.progress}%</h6>
-                          <a className="btn btn-primary m-4" href={'/details/'+tutorial.tutorialId} style={{maxWidth:"5rem", minWidth:"5rem"}}> details</a>
-                        </Accordion.Body> 
-                    </Accordion.Item>    
-                </Accordion> 
-                ))}
+                assignTutorials.assignTutorials.map((tutorial, index)=>(
+                  <Accordion key={index}>
+                      <Accordion.Item eventKey={tutorial.tutorialId} >
+                          <Accordion.Header> <h5>
+                            {tutorial.title} </h5>
+                          </Accordion.Header>
+                          <Accordion.Body> 
+                            <h6>Opis:</h6> <p> {tutorial.description} </p>
+                            <a className="btn btn-primary m-4" href={'/details/'+tutorial.tutorialId} style={{maxWidth:"5rem", minWidth:"5rem"}}> details</a>
+                          </Accordion.Body> 
+                      </Accordion.Item>    
+                  </Accordion> 
+              ))}
+          </div>
         </div>
-      </div>
       </>) : (<><h1>Assign tutorial to your account</h1></>)}
 
       {createdTutorials?.length > 0 ? 
@@ -62,21 +61,20 @@ function TutorialsDisplay() {
           <p className=" d-flex align-items-left justify-content-left mt-5">There is your created tutorials</p>
         </h5>
         <div className="accordion" id="accordionDetails">
-              {  
+            {  
               createdTutorials.map((tutorial, index)=>(
                 <Accordion key={index}>
                     <Accordion.Item eventKey={tutorial._id} >
-                        <Accordion.Header> <h5>
-                          {tutorial.title} </h5>
+                        <Accordion.Header> 
+                          <h5> {tutorial.title} </h5>
                         </Accordion.Header>
                         <Accordion.Body> 
                           <h6>Opis:</h6> <p> {tutorial.longDescription} </p>
-                          
                           <a className="btn btn-primary m-4" href={'/details/'+tutorial._id} style={{maxWidth:"5rem", minWidth:"5rem"}}> details</a>
                         </Accordion.Body> 
                     </Accordion.Item>    
                 </Accordion> 
-                ))}
+            ))}
         </div>
       </div>
       </>) : (<><h1>Create your own tutorial</h1></>)}

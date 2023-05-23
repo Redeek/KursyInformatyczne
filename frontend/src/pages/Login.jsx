@@ -50,8 +50,7 @@ function Login() {
     return <><div className={"spinner"}><FadeLoader color="#36d7b7" /></div></>
   }
 
-  return (
-    <>
+  return (<>
       <section className="heading">
         <div>
           <h2>

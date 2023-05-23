@@ -22,7 +22,7 @@ function Header() {
         </div>
         <div className='d-flex row-reverse '>
             {user? (<>
-                    <div className='m-3 align-items-center mt-4' >
+                    <div className='m-3 align-items-center mt-4' id='Dashboard'>
                         <Link to='/dashboard' style={{textDecoration: 'none', fontSize:'1.3rem'}}>
                             <FaUser /> Dashboard
                         </Link>
@@ -32,17 +32,18 @@ function Header() {
                         <button className="button" onClick={onLogout}>Logout</button>
                     </div>
                 </>) : (<>
-                <div className='m-3'>
-                    <Link to='/login' style={{textDecoration: 'none'}}>
-                        <FaSignInAlt /> Login
-                    </Link>
-                </div>
-                <div className="vr" />
-                <div className='m-3'>
-                    <Link to='/register' style={{textDecoration: 'none'}}>
-                        <FaUser /> Register
-                    </Link>
-                </div></>)}
+                    <div className='m-3'>
+                        <Link to='/login' style={{textDecoration: 'none'}}>
+                            <FaSignInAlt /> Login
+                        </Link>
+                    </div>
+                    <div className="vr" />
+                    <div className='m-3'>
+                        <Link to='/register' style={{textDecoration: 'none'}}>
+                            <FaUser /> Register
+                        </Link>
+                    </div>
+                </>)}
             
         </div>
     </header>

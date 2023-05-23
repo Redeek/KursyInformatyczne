@@ -10,7 +10,7 @@ function ShowVideo({showVideo,handleCloseVideo, link}) {
               <Modal.Title>Watch now</Modal.Title>
             </Modal.Header>
             <Modal.Body className=' d-flex justify-content-center'> 
-             <iframe src={`https://www.youtube.com/embed/${link}`} height="500" width={"900"}></iframe>
+              <iframe src={`https://www.youtube.com/embed/${link}`} height="500" width={"900"}></iframe>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseVideo}>

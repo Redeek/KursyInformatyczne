@@ -41,14 +41,12 @@ if(isLoading){
 }
 
 
-  return (
-    <>
-        <div className="container">
-              {tutorials.length > 0 ? 
-              (<>
+  return (<>
+      <div className="container">
+          {tutorials.length > 0 ? 
+            (<>
               <div className='row row-cols-auto d-flex align-items-center justify-content-center' >
-                {  
-                  
+                {
                   currentTutorial.map((tutorial, index)=>{
                         return(
                         <div className='col-xs-1 m-3' key={index}>
@@ -60,14 +58,10 @@ if(isLoading){
               <div className='col m-3 d-flex align-items-center justify-content-center' >
                 <Pagination TutorialsPerPage={tutorialsPerPage} totalTutorials={tutorials.length} paginate={paginate}/>
               </div>
-              
-              </>) : (<><h1>There is no tutorials</h1></>)}
-            
-            
+            </>) : (<><h1>There is no tutorials</h1></>)}
         </div>
-        
     </>
-  )
+  );
 }
 
 export default Main

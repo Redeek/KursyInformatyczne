@@ -20,25 +20,25 @@ function UserInfo({Info}) {
                     </div>
                 </div>
                 <div className="bg-light border">
-                <div className="row">
+                    <div className="row">
                         <div className="col-4">Surname:</div>
                         <div className="col">{Info.surname}</div>
                     </div>
                 </div>
                 <div className="bg-light border">
-                <div className="row">
+                    <div className="row">
                         <div className="col-4">Email:</div>
                         <div className="col">{Info.email}</div>
                     </div>
                 </div>
                 <div className="bg-light border">
-                <div className="row">
+                    <div className="row">
                         <div className="col-4">Phone:</div>
                         <div className="col"> </div>
                     </div>
                 </div>
                 <div className="bg-light border">
-                <div className="row">
+                    <div className="row">
                         <div className="col-4">Country:</div>
                         <div className="col"> </div>
                     </div>
@@ -47,7 +47,6 @@ function UserInfo({Info}) {
                     <button className='btn btn-warning'> <FiEdit /> edit </button>
                 </div>
             </div>
-
         </div>
     </>)
 }

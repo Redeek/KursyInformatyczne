@@ -48,19 +48,17 @@ function TutorialsCard({tutorial}) {
   return (
     <div className='card mt-3' style={{width:"18rem", minHeight:"600px", maxHeight:"600px"}} >
       <img src={Java} alt="img" className="card-img-top m-2" style={{width:"18rem" , maxHeight:"50rem", maxWidth:"17rem"}}/>
-        <div className="card-body">
-          <h4 className='card-title'>{tutorial.title}</h4>
-          <p className="card-text mt-4">{tutorial.cardDescription}</p>
-          <div className='display-flex d-flex align-items-center justify-content-center ' style={{position: "absolute", bottom:"5%"}}>
+      <div className="card-body">
+        <h4 className='card-title'>{tutorial.title}</h4>
+        <p className="card-text mt-4">{tutorial.cardDescription}</p>
+        <div className='display-flex d-flex align-items-center justify-content-center ' style={{position: "absolute", bottom:"5%"}}>
           <a className="btn btn-primary m-4" href={'/details/'+tutorial._id} style={{maxWidth:"5rem", minWidth:"5rem"}}> details</a>
           { <button className="btn btn-secondary m-3" style={{maxWidth:"5rem", minWidth:"5rem"}} onClick={()=>{check(tutorial)}} > Add</button>  }
-           
-            
-          </div>
         </div>
-        <div className="languageTag" style={{display:"flex", alignContent:"baseline",margin:"10px 0px 0px 10px"}}>
-          <p style={{background:"rgba(254,100,100,0.3)", border:"solid 1px grey", borderRadius:"5px", padding:"0.15rem"}}> {tutorial.language} </p>
-        </div>
+      </div>
+      <div className="languageTag" style={{display:"flex", alignContent:"baseline",margin:"10px 0px 0px 10px"}}>
+        <p style={{background:"rgba(254,100,100,0.3)", border:"solid 1px grey", borderRadius:"5px", padding:"0.15rem"}}> {tutorial.language} </p>
+      </div>
     </div>
   )
 }

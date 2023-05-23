@@ -33,36 +33,11 @@ const getTutorial = async(id, token) =>{
     return res.data
 }
 
-const setEndChapter = async(tutorial, token) =>{
-    const config = {
-        headers: {
-            Authorization:`Bearer ${token}`
-        },
-    }
-    console.log(token)
-    console.log(tutorial)
-    const res = await axios.put(`http://localhost:5000/api/assign/isEnd/${tutorial.tutorialId}`,tutorial, config)
-    return res.data
-}
-
-const unsetEndChapter = async(tutorial, token) =>{
-    const config = {
-        headers: {
-            Authorization:`Bearer ${token}`
-        },
-    }
-    console.log(tutorial)
-    const res = await axios.put(`http://localhost:5000/api/assign/isStart/${tutorial.tutorialId}`,tutorial, config)
-    return res.data
-}
-
 
 const assignService = {
     getTutorials,
     addAssignTutorial,
     getTutorial,
-    setEndChapter,
-    unsetEndChapter
 }
 
 export default assignService
