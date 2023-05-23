@@ -79,7 +79,7 @@ function TutorialsDisplay() {
                 ))}
         </div>
       </div>
-      </>) : (<><h1>Assign tutorial to your account</h1></>)}
+      </>) : (<><h1>Create your own tutorial</h1></>)}
 
     </>)
 }

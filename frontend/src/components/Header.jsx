@@ -18,7 +18,7 @@ function Header() {
   return (
     <header className='header m-2 no-link-style'>
         <div className='d-flex flex-row ' >
-            <Link to='/' style={{textDecoration: 'none', fontSize:'2rem'}} >Tutorial</Link>
+            <Link to='/' style={{textDecoration: 'none', fontSize:'2rem'}} >ITutorial</Link>
         </div>
         <div className='d-flex row-reverse '>
             {user? (<>

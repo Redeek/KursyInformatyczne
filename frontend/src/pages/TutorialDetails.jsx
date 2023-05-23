@@ -31,25 +31,26 @@ function TutorialDetails() {
     const dispatch = useDispatch() 
     const {selectedTutorial} = useSelector((state) => state.tutorials)
     const {user, userInfo} = useSelector((state) => state.auth)
-    const {assignTutorial, isError, isLoading, message} = useSelector((state) => state.assigntutorials)
+    const {Tutorial, isError, isLoading, message} = useSelector((state) => state.tutorials)
     
     useEffect(()=>{
         if(isError){
           console.log(message)
         }
+
+        dispatch(getTutorial(id))
+        
         dispatch(getAssignTutorial(id))
         if(user){
           dispatch(getInfo())
           
         }
         
-        dispatch(getTutorial(id))
-        
         return () => { 
           dispatch(reset())
         }  
       
-      },[isError, message, dispatch, id, user])
+      },[isError, message, id, user])
 
       if(isLoading){
         return <div className={"spinner"}><FadeLoader color="#36d7b7" /></div>
@@ -96,7 +97,6 @@ function TutorialDetails() {
        
 
   return (<>
-    <div>TutorialDetails</div>
     <div>
       <section className="container">
         <div className="header">
@@ -108,14 +108,14 @@ function TutorialDetails() {
           
         </div>
         <div className="">
-          <h5>{selectedTutorial?.description}</h5>
+          <h5>Description:</h5><p>{selectedTutorial?.longDescription}</p>
         </div>
-        {selectedTutorial?.chapterArray?.length > 0 ? 
+        {selectedTutorial.chapterArray?.length > 0 ? 
               (<>
               <div className='row d-flex align-items-center justify-content-center' >
                 <div className="accordion" id="accordionDetails">
-                      {assignTutorial.assignTutorials[0]?.chapters.length > 0 ?   
-                      assignTutorial?.assignTutorials[0]?.chapters.map((chapter, index)=>(
+                      {selectedTutorial?.chapterArray.length > 0 ?   
+                      selectedTutorial?.chapterArray.map((chapter, index)=>(
                           <Accordion key={chapter._id} id={chapter._id} >
                               <Accordion.Item eventKey={index} >
                                   <Accordion.Header> 
@@ -131,7 +131,8 @@ function TutorialDetails() {
                                     <div className='row' style={chapter.isEnd?{filter: "blur(8px)", zIndex:"-1"}: {}}>
                                       <div className="col-11 "> {chapter.textChapter}</div>
                                       <div className="col-1 "> 
-                                        <button className='btn btn-info' onClick={()=>{setchapterfinish( index)}}>Finished</button>
+                                       { user? <button className='btn btn-info' onClick={()=>{setchapterfinish( index)}}>Finish</button>:<></> }
+                                        
                                         {selectedTutorial?.user === userInfo?._id? (<div>
                                           <button className="btn btn-danger" onClick={() => {deletechapter(chapter._id)}}> delete </button>
                                           </div>):<></>
@@ -159,7 +160,7 @@ function TutorialDetails() {
                                     { 
                                                                      
                                     }
-                                    
+                                    <button className='btn btn-info' onClick={()=>{setchapterfinish( index)}}>Finished</button>
                                     {selectedTutorial?.user === userInfo?._id? (<div>
                                       <button className="btn" onClick={() => {deletechapter(chapter._id)}}> delete </button>
                                     </div>):(<></>)}

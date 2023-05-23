@@ -39,6 +39,7 @@ const setEndChapter = async(tutorial, token) =>{
             Authorization:`Bearer ${token}`
         },
     }
+    console.log(token)
     console.log(tutorial)
     const res = await axios.put(`http://localhost:5000/api/assign/isEnd/${tutorial.tutorialId}`,tutorial, config)
     return res.data

@@ -32,7 +32,7 @@ const tutorialSchema = mongoose.Schema({
             type: Boolean,
             default: false
         }
-}],
+    }],
     language: {
         type: String,
         required: [true, "this field is required"]
@@ -40,7 +40,7 @@ const tutorialSchema = mongoose.Schema({
     isActive: {
         type: Boolean,
         required: [true, "this field is required"]
-    }
+    },
     
 },
 {

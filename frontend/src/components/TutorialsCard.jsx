@@ -58,6 +58,9 @@ function TutorialsCard({tutorial}) {
             
           </div>
         </div>
+        <div className="languageTag" style={{display:"flex", alignContent:"baseline",margin:"10px 0px 0px 10px"}}>
+          <p style={{background:"rgba(254,100,100,0.3)", border:"solid 1px grey", borderRadius:"5px", padding:"0.15rem"}}> {tutorial.language} </p>
+        </div>
     </div>
   )
 }

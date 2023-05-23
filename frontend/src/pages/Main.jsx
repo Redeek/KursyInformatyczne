@@ -44,7 +44,6 @@ if(isLoading){
   return (
     <>
         <div className="container">
-            <p>all tutorials</p>
               {tutorials.length > 0 ? 
               (<>
               <div className='row row-cols-auto d-flex align-items-center justify-content-center' >

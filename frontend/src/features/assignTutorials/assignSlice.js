@@ -43,6 +43,7 @@ export const getAssignTutorial = createAsyncThunk('tutorials/getAssignTutorial',
 export const setEndChapter = createAsyncThunk('tutorials/setChapter', async ( tutorials , thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user
+        console.log(token)
         return await assignService.setEndChapter(tutorials, token)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
